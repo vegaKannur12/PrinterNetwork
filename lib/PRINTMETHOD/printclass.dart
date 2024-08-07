@@ -16,7 +16,6 @@ class NetworkPrinter {
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
     List<int> bytes = [];
-
     bytes += generator.text(
         'Regular: aA bB cC dD eE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV wW xX yY zZ');
     bytes += generator.text('Special 1: àÀ èÈ éÉ ûÛ üÜ çÇ ôÔ',
@@ -82,7 +81,7 @@ class NetworkPrinter {
     }
   }
 
-  printOne2(String ip, String papers, BuildContext context) async {
+  printOne2(String ip, String papers,int wcol1,int wcol2,int wcol3,int wcol4, BuildContext context) async {
     try {
       print("ip = $ip \npapersiz = $papers");
       print("heloo testvega");
@@ -94,9 +93,12 @@ class NetworkPrinter {
       img.Image image = img.decodeImage(imageBytesUint8List)!;
       print("img---$image");
       final profile = await CapabilityProfile.load();
-      if (papers == "80mm") {
+      if (papers == "80mm") 
+      {
         generator = Generator(PaperSize.mm80, profile);
-      } else if (papers == "72mm") {
+      } 
+      else if (papers == "72mm") 
+      {
         generator = Generator(PaperSize.mm72, profile);
       } else {
         generator = Generator(PaperSize.mm58, profile);
@@ -170,22 +172,22 @@ class NetworkPrinter {
       bytes += generator.row([
         PosColumn(
           text: 'Col1',
-          width: 3,
+          width: wcol1,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: 'Col2',
-          width: 3,
+          width: wcol2,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: 'Col3',
-          width: 3,
+          width: wcol3,
           styles: const PosStyles(align: PosAlign.right),
         ),
         PosColumn(
           text: 'Col4',
-          width: 3,
+          width: wcol4,
           styles: const PosStyles(align: PosAlign.right),
         ),
       ]);
@@ -193,66 +195,66 @@ class NetworkPrinter {
       bytes += generator.row([
         PosColumn(
           text: '1',
-          width: 3,
+          width: wcol1,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: 'A1001',
-          width: 3,
+          width:wcol2,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: '199.75',
-          width: 3,
+          width: wcol3,
           styles: const PosStyles(align: PosAlign.right),
         ),
         PosColumn(
           text: '799.00',
-          width: 3,
+          width: wcol4,
           styles: const PosStyles(align: PosAlign.right),
         ),
       ]);
       bytes += generator.row([
         PosColumn(
           text: '2',
-          width: 3,
+          width: wcol1,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: 'A1002',
-          width: 3,
+          width: wcol2,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: '375.75',
-          width: 3,
+          width: wcol3,
           styles: const PosStyles(align: PosAlign.right),
         ),
         PosColumn(
           text: '1500.40',
-          width: 3,
+          width: wcol4,
           styles: const PosStyles(align: PosAlign.right),
         ),
       ]);
       bytes += generator.row([
         PosColumn(
           text: '3',
-          width: 3,
+          width: wcol1,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: 'A1003',
-          width: 3,
+          width: wcol2,
           styles: const PosStyles(align: PosAlign.left),
         ),
         PosColumn(
           text: '400.00',
-          width: 3,
+          width: wcol3,
           styles: const PosStyles(align: PosAlign.right),
         ),
         PosColumn(
           text: '1603.00',
-          width: 3,
+          width: wcol4,
           styles: const PosStyles(align: PosAlign.right),
         ),
       ]);
@@ -307,7 +309,7 @@ class NetworkPrinter {
         PosPrintResult printing = await printer.printTicket(ticket);
         print(printing.msg);
         printer.disconnect();
-        // return true;
+      // return true;
       }
       // else if (connect == PosPrintResult.timeout) {
       //   CustomSnackbar snk = CustomSnackbar();
